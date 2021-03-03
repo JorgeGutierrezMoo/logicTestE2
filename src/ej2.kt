@@ -26,6 +26,9 @@ var arrayRange2 = arrayListOf<Int>()
 
 var result = arrayListOf<Int>()
 var arrayRoman = arrayListOf<String>()
+var arrayRomanSize = arrayListOf<Int>()
+var maxValueInRomanArray: Int = 0
+
 fun main() {
 
     firstBlock()
@@ -48,51 +51,47 @@ fun main() {
     val auxS2 = year2[year2.length - 2].toString()
     eraOnly2 = concat(auxS2, auxS1)
     println("Isolated Inferior Era is: $eraOnly2")
-    /*
-    if (yearOnly1 > LOWEST_YEAR){
-        println("***ERROR*** The lowest allowed value for the Isolated Inferior Limit Year is: $LOWEST_YEAR ")
-        exitProcess(1)
-    }
-    if (yearOnly2 > CURRENT_YEAR){
-        println("***ERROR*** The highest allowed value for the Isolated Superior Limit Year is: $CURRENT_YEAR ")
-        exitProcess(1)
-    }
-     */
 
     correctedYearOnly1 = yearOnly1
     correctedYearOnly2 = yearOnly2 + 753
 
-    if (eraOnly1 != eraOnly2){
-        if (eraOnly1 == "BC"){
-            if (eraOnly1 == "BC"){
-                for (i in (correctedYearOnly1) downTo 1){
+    if (eraOnly1 != eraOnly2) {
+        if (eraOnly1 == "BC") {
+            if (eraOnly1 == "BC") {
+                for (i in (correctedYearOnly1) downTo 1) {
                     arrayRange1.add(i)
                 }
-                for (j in 1..(correctedYearOnly2)){
+                for (j in 1..(correctedYearOnly2)) {
                     arrayRange2.add(j)
                 }
                 println(arrayRange1)
                 println(arrayRange2)
                 result = (arrayRange1 + arrayRange2) as ArrayList<Int>
                 println(result)
-                for (item in arrayRange1) {
+                for (item in result) {
                     var year = digitToRoman(item).toString()
                     arrayRoman.add(year)
                 }
                 println("arrayRoman:")
                 println(arrayRoman)
+                for ((index, value) in arrayRoman.withIndex()) {
+
+                    arrayRoman.get(index)
+                    arrayRomanSize.add(arrayRoman[index].length)
+                    maxValueInRomanArray = arrayRomanSize.maxOrNull()!!
+
+                }
+                println(arrayRomanSize)
+                println("Final Answaer:")
+                println(maxValueInRomanArray)
             }
-        }else{
+        } else {
             println("***ERROR*** The only allowed values for Era are - BC - and - AD -")
             exitProcess(1)
         }
-    }else{
+    } else {
         whenErasAreTheSame()
-        println()
-        println(arrayRange2)
     }
-
-
 }
 
 
@@ -116,7 +115,7 @@ fun concat(s1: String, s2: String): String {
     return StringBuilder(s1).append(s2).toString()
 }
 
-fun firstBlock(){
+fun firstBlock() {
     //Asking user for expected input
     println("Enter range in the expected format: ")
     val stringInput = readLine()!!
@@ -134,18 +133,59 @@ fun firstBlock(){
 
 fun whenErasAreTheSame() {
 
-    if (eraOnly1 == eraOnly2){
-        if (eraOnly1 == "BC"){
-            correctedYearOnly1 = yearOnly1-753
-            correctedYearOnly2 = yearOnly2-753
-            for (i in correctedYearOnly1 downTo correctedYearOnly2){
+    if (eraOnly1 == eraOnly2) {
+        if (eraOnly1 == "BC") {
+            correctedYearOnly1 = yearOnly1 - 753
+            correctedYearOnly2 = yearOnly2 - 753
+            for (i in correctedYearOnly1 downTo correctedYearOnly2) {
                 arrayRange2.add(abs(i))
             }
+            //----
+            println(arrayRange2)
+            for (item in arrayRange2) {
+                var year = digitToRoman(item).toString()
+                arrayRoman.add(year)
+            }
+            println("arrayRoman:")
+            println(arrayRoman)
+            for ((index, value) in arrayRoman.withIndex()) {
+
+                arrayRoman.get(index)
+                arrayRomanSize.add(arrayRoman[index].length)
+                maxValueInRomanArray = arrayRomanSize.maxOrNull()!!
+
+            }
+            println(arrayRomanSize)
+            println("Final Answaer:")
+            println(maxValueInRomanArray)
+            //------
         }
-        if (eraOnly1 == "AD"){
-            for (i in correctedYearOnly1..correctedYearOnly2){
+        if (eraOnly1 == "AD") {
+            var yearAux1 = yearOnly1 + 753
+            var yearAux2 = yearOnly2 + 753
+            correctedYearOnly1 = yearAux1
+            correctedYearOnly2 = yearAux2
+            for (i in correctedYearOnly1..correctedYearOnly2) {
                 arrayRange2.add(i)
             }
+            println(arrayRange2)
+            for (item in arrayRange2) {
+                var year = digitToRoman(item).toString()
+                arrayRoman.add(year)
+            }
+            println("arrayRoman:")
+            println(arrayRoman)
+            for ((index, value) in arrayRoman.withIndex()) {
+
+                arrayRoman.get(index)
+                arrayRomanSize.add(arrayRoman[index].length)
+                maxValueInRomanArray = arrayRomanSize.maxOrNull()!!
+
+            }
+            println(arrayRomanSize)
+            println("Final Answaer:")
+            println(maxValueInRomanArray)
+
         }
     }
 }
